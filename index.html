@@ -51,11 +51,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-6 offset-3">
-                <h2>Une musique de vos favoris au hasard :</h2>
-                <div class="music-card">
-                    <img src="unknown.jpg" alt="lorem ipsum">
-                    <div class="music-info">
+            <div class="col-6 offset-3" id="randomMusic">
+                <h2 class="section-title">Une musique de vos favoris au hasard :</h2>
+                <div class="music-card my-4">
+                    <img class="music-img" src="unknown.jpg" alt="lorem ipsum">
+                    <div class="music-info pl-3">
                         <p class="music-title">Lose Yourself</p>
                         <p class="music-artist">
                             <i class="fas fa-user"></i>
@@ -66,10 +66,10 @@
                             Curtain Call
                         </p>
                     </div>
-                    <audio src="" controls></audio>
+                    <audio class="music-player my-3" src="" controls></audio>
                     <button type="button" class="btn btn-danger">
                         <i class="fas fa-star"></i>
-                        Retirer des favoris
+                        Retirer de mes favoris
                     </button>
                 </div>
                 <button type="button" class="btn btn-primary">

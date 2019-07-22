@@ -1,0 +1,41 @@
+/************************************************
+ * Homepage
+ ***********************************************/
+#randomMusic {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 1.5rem;
+}
+
+.music-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid #efefef;
+    border-radius: 5px;
+    padding: .5rem;
+}
+
+.music-img {
+    width: 20%;
+}
+
+.music-info {
+    width: 80%;
+}
+
+.music-info > * {
+    margin: 0;
+}
+
+.music-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.music-player {
+    width: 100%;
+}
