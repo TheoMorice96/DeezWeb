@@ -8,14 +8,16 @@ function onSubmit (e) {
     e.preventDefault();
 
     const q = encodeURIComponent($('#q').val());
-    searchOnDeezer(q);
+    const order = $('#order').val();
+    searchOnDeezer(q, order);
 }
 
-function searchOnDeezer (q) {
+function searchOnDeezer (q, order) {
     const API_URL = 'https://api.deezer.com/search';
 
     const params = {
         q       : q,
+        order   : order,
         output  : 'jsonp'
     };
 

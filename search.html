@@ -53,11 +53,11 @@
                 <div class="form-group mb-2">
                     <label for="order" class="mr-2">Trier par :</label>
                     <select class="custom-select mr-4" name="order" id="order">
-                        <option selected value="music">Musique</option>
-                        <option value="artist">Artiste</option>
-                        <option value="album">Album</option>
-                        <option value="popular">Les plus populaires</option>
-                        <option value="rated">Les mieux notés</option>
+                        <option selected value="TRACK_ASC">Musique</option>
+                        <option value="ARTIST_ASC">Artiste</option>
+                        <option value="ALBUM_ASC">Album</option>
+                        <option value="RANKING">Les plus populaires</option>
+                        <option value="RATING_DESC">Les mieux notés</option>
                     </select>
                 </div>                
                 <button type="submit" class="btn btn-primary mb-2">Valider</button>
@@ -70,7 +70,7 @@
                     <h2>Résultats</h2>
                 </div>
             </div>
-            
+
             <div class="row" id="musicList"></div>
         </div>
     </section>
