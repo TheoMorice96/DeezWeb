@@ -17,18 +17,9 @@ footer {
 
 
 /************************************************
- * Homepage
+ * Common elements
  ***********************************************/
-#randomMusic {
-    display: flex;
-    flex-direction: column;
-}
-
-.section-title {
-    font-size: 1.5rem;
-}
-
-.music-card {
+ .music-card {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -56,4 +47,18 @@ footer {
 
 .music-player {
     width: 100%;
+}
+
+
+
+/************************************************
+ * Homepage
+ ***********************************************/
+#randomMusic {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-size: 1.5rem;
 }

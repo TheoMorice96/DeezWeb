@@ -45,13 +45,94 @@
                 </div>
             </div>
 
-            <form>
-                <label for="search">Titre :</label>
-                <input type="search" name="q" id="q">
-                <label for="order">Trier par :</label>
-                
-                <input type="submit" value="Valider">
+            <form class="form-inline">
+                <div class="form-group">                    
+                    <label for="q" class="mr-2">Titre :</label>
+                    <input type="search" class="form-control mr-4" name="q" id="q">
+                </div>
+                <div class="form-group">
+                    <label for="order" class="mr-2">Trier par :</label>
+                    <select class="custom-select mr-4" name="order" id="order">
+                        <option selected value="music">Musique</option>
+                        <option value="artist">Artiste</option>
+                        <option value="album">Album</option>
+                        <option value="popular">Les plus populaires</option>
+                        <option value="rated">Les mieux notés</option>
+                    </select>
+                </div>                
+                <button type="submit" class="btn btn-primary">Valider</button>
             </form>
+
+            <hr>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h2>Résultats</h2>
+                </div>
+                <div class="col-4">
+                    <div class="music-card my-4">
+                        <img class="music-img" src="unknown.jpg" alt="lorem ipsum">
+                        <div class="music-info pl-3">
+                            <p class="music-title">Lose Yourself</p>
+                            <p class="music-artist">
+                                <i class="fas fa-user"></i>
+                                Eminem
+                            </p>
+                            <p class="music-album">
+                                <i class="fas fa-compact-disc"></i>
+                                Curtain Call
+                            </p>
+                        </div>
+                        <audio class="music-player my-3" src="" controls></audio>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-star"></i>
+                            Retirer de mes favoris
+                        </button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="music-card my-4">
+                        <img class="music-img" src="unknown.jpg" alt="lorem ipsum">
+                        <div class="music-info pl-3">
+                            <p class="music-title">Lose Yourself</p>
+                            <p class="music-artist">
+                                <i class="fas fa-user"></i>
+                                Eminem
+                            </p>
+                            <p class="music-album">
+                                <i class="fas fa-compact-disc"></i>
+                                Curtain Call
+                            </p>
+                        </div>
+                        <audio class="music-player my-3" src="" controls></audio>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-star"></i>
+                            Retirer de mes favoris
+                        </button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="music-card my-4">
+                        <img class="music-img" src="unknown.jpg" alt="lorem ipsum">
+                        <div class="music-info pl-3">
+                            <p class="music-title">Lose Yourself</p>
+                            <p class="music-artist">
+                                <i class="fas fa-user"></i>
+                                Eminem
+                            </p>
+                            <p class="music-album">
+                                <i class="fas fa-compact-disc"></i>
+                                Curtain Call
+                            </p>
+                        </div>
+                        <audio class="music-player my-3" src="" controls></audio>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-star"></i>
+                            Retirer de mes favoris
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
