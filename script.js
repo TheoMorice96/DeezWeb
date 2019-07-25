@@ -2,6 +2,7 @@ $(function() {
     console.log('jQuery a bien été chargé');
 
     $('#searchForm').submit(onSubmit);
+    $('.add-to-fav').click(addTofav);
 });
 
 function onSubmit (e) {
@@ -27,25 +28,22 @@ function searchOnDeezer (q, order) {
         dataType    : 'jsonp'
     });
 
-    query.done(onSuccess);
-    query.fail(onError);
-}
+    query.done(function ({ data: musics }) {
+        if (musics.length > 0) {
+            const cardHtml = musics.map(renderCard).join('');
+            $('#noResult').hide();
+            $('#results').show();
+            $('#musicList').html(cardHtml);
+        } else {
+            $('#musicList').html('');
+            $('#results').hide();
+            $('#noResult').show();
+        }
+    });
 
-function onSuccess ({ data: musics }) {
-    if (musics.length > 0) {
-        const cardHtml = musics.map(renderCard).join('');
-        $('#noResult').hide();
-        $('#results').show();
-        $('#musicList').html(cardHtml);
-    } else {
-        $('#musicList').html('');
-        $('#results').hide();
-        $('#noResult').show();
-    }
-}
-
-function onError (error) {
-    console.log(error);
+    query.fail(function (error) {
+        $('#musicList').html(`<div class="col-12">Une erreur est survenue : ${error.statusText}</div>`);
+    });
 }
 
 function renderCard (music) {
@@ -65,9 +63,9 @@ function renderCard (music) {
                     </p>
                 </div>
                 <audio class="music-player my-3" src="${music.preview}" controls></audio>
-                <button type="button" class="btn btn-danger">
-                    <i class="fas fa-star"></i>
-                    Retirer de mes favoris
+                <button type="button" class="btn btn-danger add-to-fav">
+                    <i class="far fa-star"></i>
+                    Ajouter à mes favoris
                 </button>
             </div>
         </div>
