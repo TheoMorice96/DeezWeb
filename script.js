@@ -32,8 +32,16 @@ function searchOnDeezer (q, order) {
 }
 
 function onSuccess ({ data: musics }) {
-    const cardHtml = musics.map(renderCard).join('');
-    $('#musicList').html(cardHtml);
+    if (musics.length > 0) {
+        const cardHtml = musics.map(renderCard).join('');
+        $('#noResult').hide();
+        $('#results').show();
+        $('#musicList').html(cardHtml);
+    } else {
+        $('#musicList').html('');
+        $('#results').hide();
+        $('#noResult').show();
+    }
 }
 
 function onError (error) {
