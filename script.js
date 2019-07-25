@@ -2,9 +2,15 @@ $(function() {
     console.log('jQuery a bien été chargé');
 
     $('#searchForm').submit(onSubmit);
-    $('.add-to-fav').click(addTofav);
+    $('body').on('click', '.add-to-fav', addToFav);
+    $('body').on('click', '.remove-from-fav', removeFromFav);
 });
 
+
+
+/**
+ * Search
+ */
 function onSubmit (e) {
     e.preventDefault();
 
@@ -47,7 +53,9 @@ function searchOnDeezer (q, order) {
 }
 
 function renderCard (music) {
-    return `
+    const id = music.id;
+
+    let html = `
         <div class="col-12 col-md-6 col-lg-4">
             <div class="music-card my-4">
                 <img class="music-img" src="${music.album.cover}" alt="lorem ipsum">
@@ -62,12 +70,47 @@ function renderCard (music) {
                         ${music.album.title}
                     </p>
                 </div>
-                <audio class="music-player my-3" src="${music.preview}" controls></audio>
-                <button type="button" class="btn btn-danger add-to-fav">
+                <audio class="music-player my-3" src="${music.preview}" controls></audio>`;
+
+    if (window.localStorage.getItem(id)) {
+        html += `
+                <button type="button" class="btn btn-danger remove-from-fav" data-id="${id}">
+                    <i class="fas fa-star"></i>
+                    Retirer de mes favoris
+                </button>`;
+    } else {
+        html += `
+                <button type="button" class="btn btn-danger add-to-fav" data-id="${id}">
                     <i class="far fa-star"></i>
                     Ajouter à mes favoris
-                </button>
+                </button>`;
+    }
+
+    html += `
             </div>
         </div>
     `;
+
+    return html;
+}
+
+
+
+/**
+ * Favorites
+ */
+function addToFav () {
+    const id = $(this).data('id');
+    window.localStorage.setItem(id, id);
+
+    $(this).removeClass('add-to-fav').addClass('remove-from-fav');
+    $(this).html('<i class="fas fa-star"></i> Retirer de mes favoris');
+}
+
+function removeFromFav () {
+    const id = $(this).data('id');
+    window.localStorage.removeItem(id);
+    
+    $(this).removeClass('remove-from-fav').addClass('add-to-fav');
+    $(this).html('<i class="far fa-star"></i> Ajouter à mes favoris');
 }
