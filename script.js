@@ -7,6 +7,9 @@ $(function() {
     $('body').on('click', '.remove-from-fav', removeFromFav);
 
     loadFavorites();
+    getRandomFavorite();
+
+    $('#otherRandomMusic').click(getRandomFavorite);
 });
 
 
@@ -124,21 +127,28 @@ function removeFromFav () {
  * Page favoris
  */
 function loadFavorites () {
-    const favArray = [];
-    for (let i = 0; i < window.localStorage.length; i++){
-        favArray.push(localStorage.getItem(localStorage.key(i)));
-    }
+    const favArray = getFavorites();
 
     if (favArray.length < 1) {
         $('#noFavorite').show();
     }
 
     favArray.forEach(trackId => {
-        getTrackById(trackId);
+        getTrackById(trackId, onSuccessFavorites, onErrorFavorites);
     });
 }
 
-function getTrackById (id) {
+function getFavorites () {
+    const favArray = [];
+
+    for (let i = 0; i < window.localStorage.length; i++){
+        favArray.push(localStorage.getItem(localStorage.key(i)));
+    }
+
+    return favArray;
+}
+
+function getTrackById (id, onSuccess, onError) {
     const API_URL = `https://api.deezer.com/track/${id}`;
 
     const params = {
@@ -151,12 +161,65 @@ function getTrackById (id) {
         dataType    : 'jsonp'
     });
 
-    query.done(function (track) {
-        const cardHtml = renderCard(track);
-        $('#favList').append(cardHtml);
-    });
+    query.done(onSuccess);
+    query.fail(onError);
+}
 
-    query.fail(function (error) {
-        $('#favList').html(`<div class="col-12">Une erreur est survenue : ${error.statusText}</div>`);
-    });
+function onSuccessFavorites (track) {
+    const cardHtml = renderCard(track);
+    $('#favList').append(cardHtml);
+}
+
+function onErrorFavorites (error) {
+    $('#favList').html(`<div class="col-12">Une erreur est survenue : ${error.statusText}</div>`);
+}
+
+
+
+/**
+ * Random favori
+ */
+function getRandomFavorite () {
+    const favArray = getFavorites();
+
+    if (favArray.length < 1) {
+        $('#randomMusicSection').hide();
+    } else {        
+        const randomId = favArray[Math.floor(Math.random() * favArray.length)];
+        getTrackById(randomId, onSuccesHome, onErrorHome);
+    }
+}
+
+function onSuccesHome (track) {
+    const cardHtml = renderCardHome(track);
+    $('#cardHome').html(cardHtml);
+}
+
+function onErrorHome (error) {
+    $('#cardHome').html(`Une erreur est survenue : ${error.statusText}`);
+}
+
+function renderCardHome (music) {
+    const id = music.id;
+
+    let html = `
+        <img class="music-img" src="${music.album.cover}" alt="lorem ipsum">
+        <div class="music-info pl-3">
+            <p class="music-title">${music.title_short}</p>
+            <p class="music-artist">
+                <i class="fas fa-user"></i>
+                ${music.artist.name}
+            </p>
+            <p class="music-album">
+                <i class="fas fa-compact-disc"></i>
+                ${music.album.title}
+            </p>
+        </div>
+        <audio class="music-player my-3" src="${music.preview}" controls></audio>
+        <button type="button" class="btn btn-danger remove-from-fav" data-id="${id}">
+            <i class="fas fa-star"></i>
+            Retirer de mes favoris
+        </button>`;
+
+    return html;
 }
