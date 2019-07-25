@@ -2,14 +2,17 @@ $(function() {
     console.log('jQuery a bien été chargé');
 
     $('#searchForm').submit(onSubmit);
+
     $('body').on('click', '.add-to-fav', addToFav);
     $('body').on('click', '.remove-from-fav', removeFromFav);
+
+    loadFavorites();
 });
 
 
 
 /**
- * Search
+ * Recherche
  */
 function onSubmit (e) {
     e.preventDefault();
@@ -97,7 +100,7 @@ function renderCard (music) {
 
 
 /**
- * Favorites
+ * Gérer les favoris
  */
 function addToFav () {
     const id = $(this).data('id');
@@ -113,4 +116,47 @@ function removeFromFav () {
     
     $(this).removeClass('remove-from-fav').addClass('add-to-fav');
     $(this).html('<i class="far fa-star"></i> Ajouter à mes favoris');
+}
+
+
+
+/**
+ * Page favoris
+ */
+function loadFavorites () {
+    const favArray = [];
+    for (let i = 0; i < window.localStorage.length; i++){
+        favArray.push(localStorage.getItem(localStorage.key(i)));
+    }
+
+    if (favArray.length < 1) {
+        $('#noFavorite').show();
+    }
+
+    favArray.forEach(trackId => {
+        getTrackById(trackId);
+    });
+}
+
+function getTrackById (id) {
+    const API_URL = `https://api.deezer.com/track/${id}`;
+
+    const params = {
+        output: 'jsonp'
+    };
+
+    const query = $.ajax({
+        url         : API_URL,
+        data        : params,
+        dataType    : 'jsonp'
+    });
+
+    query.done(function (track) {
+        const cardHtml = renderCard(track);
+        $('#favList').append(cardHtml);
+    });
+
+    query.fail(function (error) {
+        $('#favList').html(`<div class="col-12">Une erreur est survenue : ${error.statusText}</div>`);
+    });
 }
