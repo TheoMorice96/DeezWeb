@@ -72,6 +72,15 @@ footer {
     display: none;
 }
 
+#displayMoreRow {
+    display: none;
+}
+
+#displayMore {
+    display: flex;
+    justify-content: center;
+}
+
 
 
 /************************************************

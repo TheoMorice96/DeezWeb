@@ -7,9 +7,11 @@ $(function() {
     $('body').on('click', '.remove-from-fav', removeFromFav);
 
     loadFavorites();
-    getRandomFavorite();
 
+    getRandomFavorite();
     $('#otherRandomMusic').click(getRandomFavorite);
+
+    $('#displayMore button').click(loadMoreMusics);
 });
 
 
@@ -40,9 +42,9 @@ function searchOnDeezer (q, order) {
         dataType    : 'jsonp'
     });
 
-    query.done(function ({ data: musics }) {
-        if (musics.length > 0) {
-            const cardHtml = musics.map(renderCard).join('');
+    query.done(function (musics) {
+        if (musics.data.length > 0) {
+            const cardHtml = musics.data.map(renderCard).join('');
             $('#noResult').hide();
             $('#results').show();
             $('#musicList').html(cardHtml);
@@ -50,6 +52,13 @@ function searchOnDeezer (q, order) {
             $('#musicList').html('');
             $('#results').hide();
             $('#noResult').show();
+        }
+
+        if (musics.next) {
+            $('#displayMoreRow').show();
+            $('#displayMoreRow').find('button').data('next', musics.next);
+        } else {
+            $('#displayMoreRow').hide();
         }
     });
 
@@ -222,4 +231,36 @@ function renderCardHome (music) {
         </button>`;
 
     return html;
+}
+
+
+
+/**
+ * Afficher plus
+ */
+function loadMoreMusics () {
+    $('#displayMore button').html(`<i class="fas fa-spinner"></i> Afficher plus`);
+
+    const API_URL = $(this).data('next');
+
+    const query = $.ajax({
+        url         : API_URL,
+        dataType    : 'jsonp'
+    });
+
+    query.done(function (musics) {
+        const cardHtml = musics.data.map(renderCard).join('');
+        $('#musicList').append(cardHtml);
+
+        if (musics.next) {
+            $('#displayMore button').html(`<i class="fas fa-plus-circle"></i> Afficher plus`);
+            $('#displayMoreRow').find('button').data('next', musics.next);
+        } else {
+            $('#displayMoreRow').hide();
+        }
+    });
+
+    query.fail(function (error) {
+        $('#musicList').html(`<div class="col-12">Une erreur est survenue : ${error.statusText}</div>`);
+    });
 }
