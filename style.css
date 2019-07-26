@@ -81,6 +81,23 @@ footer {
     justify-content: center;
 }
 
+.animated-spinner {
+    animation: spin 1s linear infinite;
+    -webkit-animation: spin 1s linear infinite; /* Safari 4.0 - 8.0 */
+}
+
+/* Standard syntax */
+@keyframes spin {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes spin {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+
 
 
 /************************************************

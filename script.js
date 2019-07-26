@@ -244,7 +244,7 @@ function renderCardHome (music) {
  * Afficher plus
  */
 function loadMoreMusics () {
-    $('#displayMore button').html(`<i class="fas fa-spinner"></i> Afficher plus`);
+    $('#displayMore button').html(`<i class="fas fa-spinner animated-spinner"></i> Afficher plus`);
 
     const API_URL = $(this).data('next');
 
