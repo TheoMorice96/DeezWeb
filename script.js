@@ -1,16 +1,21 @@
 $(function() {
     console.log('jQuery a bien été chargé');
 
+    // Validation du formulaire de recherche
     $('#searchForm').submit(onSubmit);
 
+    // Gérer l'ajout et la suppression de favoris
     $('body').on('click', '.add-to-fav', addToFav);
     $('body').on('click', '.remove-from-fav', removeFromFav);
 
+    // Charger les musiques sur la page favoris
     loadFavorites();
 
+    // Gestion du favori aléatoire sur la homepage
     getRandomFavorite();
     $('#otherRandomMusic').click(getRandomFavorite);
 
+    // Chargement des 25 musiques suivantes dans les résultats de recherche
     $('#displayMore button').click(loadMoreMusics);
 });
 
@@ -211,7 +216,7 @@ function onErrorHome (error) {
 function renderCardHome (music) {
     const id = music.id;
 
-    let html = `
+    const html = `
         <img class="music-img" src="${music.album.cover}" alt="lorem ipsum">
         <div class="music-info pl-3">
             <p class="music-title">${music.title_short}</p>
