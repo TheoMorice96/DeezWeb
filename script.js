@@ -78,7 +78,7 @@ function renderCard (music) {
     let html = `
         <div class="col-12 col-md-6 col-lg-4">
             <div class="music-card my-4">
-                <img class="music-img" src="${music.album.cover}" alt="lorem ipsum">
+                <img class="music-img" src="${music.album.cover}" alt="${music.album.title} - pochette">
                 <div class="music-info pl-3">
                     <p class="music-title">${music.title_short}</p>
                     <p class="music-artist">
@@ -217,7 +217,7 @@ function renderCardHome (music) {
     const id = music.id;
 
     const html = `
-        <img class="music-img" src="${music.album.cover}" alt="lorem ipsum">
+        <img class="music-img" src="${music.album.cover}" alt="${music.album.title} - pochette">
         <div class="music-info pl-3">
             <p class="music-title">${music.title_short}</p>
             <p class="music-artist">
